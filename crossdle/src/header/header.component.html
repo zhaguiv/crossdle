@@ -1,0 +1,28 @@
+<div class="header-bar">
+    <div class="header-logo">
+        <div class="logo-grid">
+            @for (currRow of logoRows; track $index) {
+                @for (currBox of currRow; track $index) {
+                    <div class="square {{currBox.type}}">
+                        @if (currBox.value) {
+                            @if (currBox.numbered){
+                                <div class="value superimposed">
+                                    <div class="superimposed">{{currBox.value}}</div>
+                                    <sup class="numbered">1.</sup> 
+                                </div>
+                            }
+                            @else {
+                                <div class="value">
+                                    {{currBox.value}}
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            }
+
+        </div> 
+
+        
+    </div>
+</div>

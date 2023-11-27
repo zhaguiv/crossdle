@@ -1,0 +1,41 @@
+.word-cmp-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.semi-right-letters {
+    display: grid;
+    grid-gap: 1px;
+}
+
+.letter-box {
+    height: 35px;
+    width: 35px;
+    border:2px solid black ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-box.black {
+    background-color: black;
+}
+
+.numbered {
+    font-size: .5em;
+    margin-top: -14px;
+}
+
+.blurred-hint {
+    color: transparent;
+    text-shadow: 0 0 6px #000;
+}
+
+
+.hint {
+    padding-bottom: 10px;
+}
+
+:host {
+    padding-bottom: 10px;
+}

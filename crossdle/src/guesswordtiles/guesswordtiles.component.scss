@@ -1,0 +1,30 @@
+
+.letter-box {
+    height: 35px;
+    width: 35px;
+    border:2px solid black ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-box.black {
+    background-color: black;
+}
+
+.submitted.green {
+    background-color: rgb(142, 221, 142);
+}
+
+.submitted.yellow {
+    background-color: rgb(255, 255, 133);
+}
+
+.submitted.red {
+    background-color: rgb(241, 129, 129);
+}
+
+.numbered {
+    font-size: .5em;
+    margin-top: -14px;
+}

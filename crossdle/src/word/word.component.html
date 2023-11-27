@@ -1,0 +1,21 @@
+
+<div class="word-cmp-container">
+
+    @if ( !showHint() ) {    
+        <div class="blurred-hint"> ****************.</div>
+    } @else {
+        <div class="hint"
+         @blurhint-animation   
+        >
+            {{currHint}}
+        </div>
+    }
+
+    <app-guesswordtiles  
+    appGridDimensions 
+    [dimensions]="currGuessSize"
+    [currGuess]="currGuess"
+    [guessClosed]="isSubmitted()"
+    >
+    </app-guesswordtiles>
+</div>

@@ -1,0 +1,14 @@
+@for (letter of currGuess; track $index) {
+    <div class="letter-box"
+        [ngClass]="getState($index)"
+        [class.submitted]="guessClosed" >
+        
+        @if( letter !== '_') {
+            {{getLetter($index)}}
+        } 
+        
+        @if( $index===0){
+            <sup class="numbered">1.</sup> 
+        }
+    </div>
+}
