@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: 'game', 
     loadComponent: () => import('../crossword/crossword.component').then( cross => cross.CrosswordComponent)
+  },
+  {
+    path: '**',
+    loadComponent: () => import('../homepage/homepage.component').then( home => home.HomepageComponent)
   }
 ];
 
