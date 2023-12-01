@@ -1,0 +1,11 @@
+.news-content, .news-header{
+    font-family: 'ubuntu';
+    text-align: center;
+}
+
+.news-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
