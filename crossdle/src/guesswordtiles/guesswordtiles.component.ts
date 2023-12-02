@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { WordService } from 'src/word.service';
 
 @Component({
   selector: 'app-guesswordtiles',
@@ -12,7 +13,10 @@ export class GuessWordtilesComponent {
 
   @Input() currGuess: String = '';
   @Input() guessClosed:boolean = false;
-  secret: string  = 'DIM_SUM'; // this comes from a service
+
+  private service = inject(WordService);
+
+  secret: string  = this.service.getWord(); //'DIM_SUM'; // this comes from a service
 
   charStates:any = {'*': 'empty', '_': 'black', 'matched': 'green', 'nomatch': 'red', 'contained' : 'yellow' }
 

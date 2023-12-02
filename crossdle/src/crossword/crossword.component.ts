@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { 
+  AfterViewInit, 
+  Component, 
+  HostListener,
+  inject, 
+  OnInit, 
+  QueryList, 
+  ViewChildren } from '@angular/core';
+import { WordService } from 'src/word.service';
 import { WordComponent } from 'src/word/word.component';
 
 @Component({
@@ -8,9 +16,11 @@ import { WordComponent } from 'src/word/word.component';
   standalone: true,
   imports:[WordComponent]
 })
-export class CrosswordComponent implements AfterViewInit{
+export class CrosswordComponent implements OnInit,AfterViewInit{
 
-  private secretWord: string = 'DIM_SUM';
+  private wordService = inject(WordService);
+
+  private secretWord: string = '';
   private currentAttempt: number = 0;
 
   public keysRow1: string[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
@@ -30,7 +40,10 @@ export class CrosswordComponent implements AfterViewInit{
 
   @ViewChildren(WordComponent) wordTiles !: QueryList<any>;
 
-
+  ngOnInit(): void {
+    this.wordService.setWord('DIM_SUM');
+    this.secretWord = this.wordService.getWord();
+  }
   ngAfterViewInit() {
     // show the first tile hint by default
     console.log('showing the first tile hint');
