@@ -33,7 +33,7 @@ export class CrosswordComponent implements OnInit,AfterViewInit{
   public currGuessIdx: number = 0;
 
   //get this from the service
-  public hints: String[] = ['Small plates.', 'Traditional chinese meal.', 'Small plates of dumplings.'];
+  public hints: String[] = ['1. Small plates.', '2. Traditional chinese meal.', '3. Small plates of dumplings.'];
   public hintIdx: number = 0;
 
   public wrongKeys: Set<String> = new Set<String>();
