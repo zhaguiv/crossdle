@@ -3,10 +3,45 @@
     text-align: center;
 }
 
+.sub-header {
+    text-shadow: 0 0 23px #5c6475;
+}
+
+.news-content {
+    padding: 10px;
+}
+
+.tile-colors {
+    line-height: 2;
+}
+
 .news-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'ubuntu';
+}
+
+.green-example {
+    background-color: rgb(142, 221, 142);
+}
+
+.yellow-example {
+    background-color: rgb(255, 255, 133);
+}
+
+.red-example {
+    background-color: rgb(241, 129, 129);
+}
+
+.instructions {
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    text-shadow: 0 0 23px #5c6475;
+}
+
+.play-btn {
+    border-radius: 10px;
     font-family: 'ubuntu';
 }

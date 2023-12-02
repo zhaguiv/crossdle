@@ -1,12 +1,23 @@
 <div class="news-section">
-    <h1 class="news-header">Announcements!</h1>
-    <h3 class="news-content">
-        <p>Thank you for trying out the game.</p> 
-        <p>Revisit the homepage for any exciting news.</p> 
-        <p> Random Fact: In 1000 AD the earth was inhabited by 275 million poeple. Today, over 7 billion.</p> 
-    </h3>
-
+    <h1 class="news-header">How to play!</h1>
+    <h3 class="sub-header"> You have as many guesses as hints.</h3>
+    <br/>
     <app-howto></app-howto>
+
+    <div class="instructions">
+        <br/>
+        <p>This secret word/phrase is "letters". 
+        <br/>
+        <br/>The guess was "kettled", causing the tiles to change color.</p>
+    </div>
+
+    <ul class="tile-colors">
+        <li><span class="green-example">green</span> means correct letter, correct position.</li>
+        <li><span class="yellow-example">yellow</span> means correct letter, wrong position!</li>
+        <li><span class="red-example">red</span> means wrong letter.</li>  
+    </ul>
+
+    <button class="play-btn" routerLink="/game"> Play Game!</button>
     
 </div>
 
