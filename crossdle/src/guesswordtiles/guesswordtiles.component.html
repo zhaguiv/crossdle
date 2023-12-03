@@ -1,7 +1,7 @@
 @for (letter of currGuess; track $index) {
-    <div class="letter-box"
+    <div class="letter-box {{guessState}}"
         [ngClass]="getState($index)"
-        [class.submitted]="guessClosed" >
+         >
         
         @if( letter !== '_') {
             {{getLetter($index)}}

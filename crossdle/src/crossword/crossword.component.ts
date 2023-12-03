@@ -1,5 +1,4 @@
 import { 
-  AfterViewInit, 
   Component, 
   HostListener,
   inject, 
@@ -16,7 +15,7 @@ import { WordComponent } from 'src/word/word.component';
   standalone: true,
   imports:[WordComponent]
 })
-export class CrosswordComponent implements OnInit,AfterViewInit{
+export class CrosswordComponent implements OnInit{
 
   private wordService = inject(WordService);
 
@@ -44,25 +43,15 @@ export class CrosswordComponent implements OnInit,AfterViewInit{
     this.wordService.setWord('DIM_SUM');
     this.secretWord = this.wordService.getWord();
   }
-  ngAfterViewInit() {
-    // show the first tile hint by default
-    console.log('showing the first tile hint');
-    this.updateTileShowHint();
-  }
 
   updateTileWithGuess() {
+    console.log('updating the tile with guess')
 
     if(this.hintIdx >= this.hints?.length){
       return;
     }
 
-    //this.wordTiles.get(this.hintIdx).currentGuess = this.currentGuess;
-    
-    this.wordTiles?.forEach( (currTile, index) => {
-      if(index === this.hintIdx) {
-        currTile.currGuess = this.currentGuess;
-      }
-    });
+    this.wordTiles.get(this.hintIdx).currGuess = this.currentGuess;
   }
 
   wrongKeyDetected(letter: string): boolean {

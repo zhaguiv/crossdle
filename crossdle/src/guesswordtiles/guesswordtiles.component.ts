@@ -12,7 +12,7 @@ import { WordService } from 'src/word.service';
 export class GuessWordtilesComponent {
 
   @Input() currGuess: String = '';
-  @Input() guessClosed:boolean = false;
+  @Input() guessState:string = 'created';
 
   private service = inject(WordService);
 
