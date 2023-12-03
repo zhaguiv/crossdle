@@ -2,11 +2,18 @@
     <div class="word-container">
 
       @for( currHint of hints; track $index) {
-        <app-word 
-            currHint="{{currHint}}" 
-            currGuess="{{defaultGuess}}"
-        >
-        </app-word>
+        @if( $index > 0 ){
+            <app-word 
+                currHint="{{currHint}}" 
+                currGuess="{{defaultGuess}}">
+            </app-word>
+        } @else {
+            <app-word 
+                currHint="{{currHint}}" 
+                currGuess="{{defaultGuess}}"
+                currState="show-hint">
+            </app-word>
+        }
       } 
       
     </div>
