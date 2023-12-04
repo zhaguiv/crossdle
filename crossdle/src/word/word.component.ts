@@ -36,7 +36,8 @@ export class WordComponent implements OnInit{
   hints: number = 3;
   @Input() currGuess: String = '';
   @Input() currHint: String = '';
-  currState: WordState = 'created';
+  @Input() staticWord: boolean = false;
+  @Input() currState: WordState = 'created';
 
   isSubmitted(): boolean {
     return this.currState === 'submitted';
@@ -57,7 +58,10 @@ export class WordComponent implements OnInit{
   public currGuessSize: number = 9;
 
   ngOnInit(): void {
+    console.log('initing the word cmp')
     this.currGuessSize = this.currGuess.length;
+    if(this.staticWord)
+      this.moveStateSubmitted();
   }
 
 }

@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { 
+  Component, 
+  HostListener,
+  inject, 
+  OnInit, 
+  QueryList, 
+  ViewChildren } from '@angular/core';
+import { WordService } from 'src/word.service';
 import { WordComponent } from 'src/word/word.component';
 
 @Component({
@@ -8,9 +15,11 @@ import { WordComponent } from 'src/word/word.component';
   standalone: true,
   imports:[WordComponent]
 })
-export class CrosswordComponent implements AfterViewInit{
+export class CrosswordComponent implements OnInit{
 
-  private secretWord: string = 'DIM_SUM';
+  private wordService = inject(WordService);
+
+  private secretWord: string = '';
   private currentAttempt: number = 0;
 
   public keysRow1: string[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
@@ -23,33 +32,26 @@ export class CrosswordComponent implements AfterViewInit{
   public currGuessIdx: number = 0;
 
   //get this from the service
-  public hints: String[] = ['Small plates.', 'Traditional chinese meal.', 'Small plates of dumplings.'];
+  public hints: String[] = ['1. Small plates.', '2. Traditional chinese meal.', '3. Small plates of dumplings.'];
   public hintIdx: number = 0;
 
   public wrongKeys: Set<String> = new Set<String>();
 
   @ViewChildren(WordComponent) wordTiles !: QueryList<any>;
 
-
-  ngAfterViewInit() {
-    // show the first tile hint by default
-    console.log('showing the first tile hint');
-    this.updateTileShowHint();
+  ngOnInit(): void {
+    this.wordService.setWord('DIM_SUM');
+    this.secretWord = this.wordService.getWord();
   }
 
   updateTileWithGuess() {
+    console.log('updating the tile with guess')
 
     if(this.hintIdx >= this.hints?.length){
       return;
     }
 
-    //this.wordTiles.get(this.hintIdx).currentGuess = this.currentGuess;
-    
-    this.wordTiles?.forEach( (currTile, index) => {
-      if(index === this.hintIdx) {
-        currTile.currGuess = this.currentGuess;
-      }
-    });
+    this.wordTiles.get(this.hintIdx).currGuess = this.currentGuess;
   }
 
   wrongKeyDetected(letter: string): boolean {

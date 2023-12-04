@@ -1,7 +1,7 @@
 
 <div class="word-cmp-container">
 
-    @if ( !showHint() ) {    
+    @if ( currState === 'created' ) {    
         <div class="blurred-hint"> ****************.</div>
     } @else {
         <div class="hint"
@@ -15,7 +15,7 @@
     appGridDimensions 
     [dimensions]="currGuessSize"
     [currGuess]="currGuess"
-    [guessClosed]="isSubmitted()"
+    [guessState]="currState"
     >
     </app-guesswordtiles>
 </div>
