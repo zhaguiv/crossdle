@@ -29,6 +29,7 @@
 .blurred-hint {
     color: transparent;
     text-shadow: 0 0 6px #000;
+    padding-bottom: 10px;
 }
 
 
@@ -37,5 +38,5 @@
 }
 
 :host {
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }

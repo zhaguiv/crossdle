@@ -20,7 +20,6 @@ export class CrosswordComponent implements OnInit{
   private wordService = inject(WordService);
 
   private secretWord: string = '';
-  private currentAttempt: number = 0;
 
   public keysRow1: string[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
   public keysRow2: string[] = [ 'space','A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L','space'];
@@ -39,62 +38,58 @@ export class CrosswordComponent implements OnInit{
 
   @ViewChildren(WordComponent) wordTiles !: QueryList<any>;
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    this.editGuess(event.key);
+  }
+
   ngOnInit(): void {
     this.wordService.setWord('DIM_SUM');
     this.secretWord = this.wordService.getWord();
-  }
-
-  updateTileWithGuess() {
-    console.log('updating the tile with guess')
-
-    if(this.hintIdx >= this.hints?.length){
-      return;
-    }
-
-    this.wordTiles.get(this.hintIdx).currGuess = this.currentGuess;
   }
 
   wrongKeyDetected(letter: string): boolean {
     return this.wrongKeys.has(letter); 
   }
 
-  updateTileShowHint() {
-    if(this.hintIdx >= this.hints?.length){
-      return;
+  updateTileWithGuess() {
+    console.log('updating the tile with guess')
+    if( this.wordTiles.get(this.hintIdx) ) {
+      this.wordTiles.get(this.hintIdx).currGuess = this.currentGuess;
     }
+  }
 
-    this.wordTiles?.forEach( (tile, index) => {
-      if(index === this.hintIdx)
-        tile.moveStateHint();
-    });
-
-    console.log('done updating tile');
+  updateTileShowHint() {
+    if(this.wordTiles.get(this.hintIdx)){
+      this.wordTiles.get(this.hintIdx).moveStateHint();
+    }
   }
 
   submitTileWithGuess() {
-    console.log('submitting guess');
-    this.wordTiles?.forEach( (currTile, index) => {
-      if(index === this.hintIdx) {
-        currTile.currGuess = this.currentGuess;
-        currTile.moveStateSubmitted();
-        currTile.wordSubmitted = true;
-      }
-    });
+    //move the word to a submitted state
+    if( this.wordTiles.get(this.hintIdx) ) {
+      let currTile = this.wordTiles.get(this.hintIdx);
+      currTile.currGuess = this.currentGuess;
+      currTile.moveStateSubmitted();
+    }
+  }
 
-    for(const currchar of this.currentGuess){
-      if( !this.secretWord.includes(currchar) ) {
-        let charUpper = currchar.toUpperCase();
-        this.wrongKeys.add(charUpper);
+  updateKeyboardState() {
+    if(this.currentGuess) {
+      //disable all wrong letters from the submitted guess
+      for(const currchar of this.currentGuess){
+        if( !this.secretWord.includes(currchar) ) {
+          let charUpper = currchar.toUpperCase();
+          this.wrongKeys.add(charUpper);
+        }
       }
     }
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent): void {
-    this.editGuess(event.key);
-  }
-
   editGuess(currLetter: string): void {
+
+    if( this.hintIdx > this.hints.length-1)
+      return;
 
     if(this.currGuessIdx > this.secretWord.length)
       this.currGuessIdx = this.secretWord.length;
@@ -102,7 +97,6 @@ export class CrosswordComponent implements OnInit{
     if(this.currGuessIdx < 0)
       this.currGuessIdx = 0;
 
-    console.log('testing ')
     let currLetterUpper = currLetter.toUpperCase();
     
     //add browser values for delete or backspace keys here
@@ -140,7 +134,6 @@ export class CrosswordComponent implements OnInit{
       default: {
         if( this.wrongKeyDetected(currLetterUpper))
           break;
-        console.log('default>>>>');
         let nextGuessIdx = Math.min(this.secretWord.length, (this.currGuessIdx+1));
         let prependEmptySpace = this.secretWord[this.currGuessIdx]==='_';
         nextGuessIdx = (prependEmptySpace) ? Math.min((this.secretWord.length-1),nextGuessIdx+1): nextGuessIdx;
@@ -154,16 +147,15 @@ export class CrosswordComponent implements OnInit{
       }
     }
     
-    //now that current guess was updated find the appropriate app-word cmp to update it's guess to be the current guess.
   }
-
 
   attemptGuess(): void {
     this.submitTileWithGuess();
+    this.updateKeyboardState();
 
     this.hintIdx++;
-    this.currentAttempt++;
 
+    //show the next hint
     this.updateTileShowHint();
   
     //reset the current guest to the default guess, and reset the index 

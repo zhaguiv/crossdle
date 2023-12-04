@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     height: 700px;
   }
   
   .word-container {
     margin-top : 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-family: 'ubuntu';
     display: flex;
     flex-direction: column;

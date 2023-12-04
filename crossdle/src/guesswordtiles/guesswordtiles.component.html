@@ -1,10 +1,8 @@
 @for (letter of currGuess; track $index) {
-    <div class="letter-box {{guessState}}"
-        [ngClass]="getState($index)"
-         >
+    <div class="letter-box {{guessState}} {{ letter  | tileStatus:currSecret:$index }}" >
         
-        @if( letter !== '_') {
-            {{getLetter($index)}}
+        @if( letter !== '_' && letter !== '*') {
+            {{letter}}
         } 
         
         @if( $index===0){
